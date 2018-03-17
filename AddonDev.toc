@@ -1,0 +1,11 @@
+## Interface: 70300
+## Title: AddonDev
+## Author: Menel
+## Version: 0.1
+## SavedVariablesPerCharacter: AddonDev_CharacterVar, AddonDev_ShowInChat, AddonDev_ShowOnScreen
+## OptionalDeps: Ace3
+## X-Embeds: Ace3
+
+embeds.xml
+
+AddonDev.lua
