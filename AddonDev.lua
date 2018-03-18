@@ -15,10 +15,6 @@ EventFrame:SetScript("OnEvent", function(self, event, ...)
     end
 end)
 
---local frame = AceGUI:Create("Frame")
---frame:SetTitle("Example Frame")
---frame:SetStatusText("AceGUI-3.0 Example Container Frame")
-
 AddonDev = LibStub("AceAddon-3.0"):NewAddon("AddonDev", "AceConsole-3.0", "AceEvent-3.0")
 
 local options = {
@@ -87,16 +83,37 @@ function AddonDev:ZONE_CHANGED()
     end
 
     if self.db.profile.showOnScreen then
-        UIErrorsFrame:AddMessage(self.db.profile.message, 1.0, 1.0, 1.0, 5.0)  --This channel is shomehow blocked for me, but works.
+        UIErrorsFrame:AddMessage(self.db.profile.message, 1.0, 1.0, 1.0, 5.0) --This channel is shomehow blocked for me, but works.
     end
 end
 
-function AddonDev:ChatCommand(input)
+function AddonDev:ChatCommand(input) --Input refers to the args passed to the command.
     if not input or input:trim() == "" then
         InterfaceOptionsFrame_OpenToCategory(self.optionsFrame)
+    elseif input == "show" then
+        showGUI()
     else
         LibStub("AceConfigCmd-3.0"):HandleCommand("ad", "addondev", input)
     end
+end
+
+function showGUI()
+    local frame = AceGUI:Create("Frame")
+    frame:SetTitle("Example Frame")
+    frame:SetStatusText("AceGUI-3.0 Example Container Frame")
+    frame:SetWidth(850)
+    frame:SetHeight(600)
+    frame:EnableResize(false)
+    -- Create a button
+    local btn = AceGUI:Create("Button")
+    btn:SetWidth(140)
+    btn:SetText("Hide Frame")
+    btn:SetCallback("OnClick", function() frame:Hide() end)
+    -- Add the button to the container
+    --frame:SetPoint("TOPLEFT", 5, 15) Works
+    btn:ClearAllPoints()
+    --btn:SetPoint("TOPLEFT", frame, 40, 40)
+    frame:AddChild(btn)
 end
 
 function AddonDev:GetMessage(info)
